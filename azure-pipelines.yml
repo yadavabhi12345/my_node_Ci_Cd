@@ -25,3 +25,7 @@ steps:
     command: publish
     publishRegistry: useFeed
     publishFeed: 'new_npm/npm-feed'
+- script: |
+    docker build -t my-node-ci-cd:$(Build.BuildId) .
+  displayName: 'Build Docker image'
+
