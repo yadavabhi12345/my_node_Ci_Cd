@@ -2,14 +2,9 @@ trigger:
 - main
 
 pool:
-  vmImage: 'my_laptop'
+  name: aws-ec2-pool
 
 steps:
-
-- task: NodeTool@0
-  displayName: 'Install Node.js'
-  inputs:
-    versionSpec: '24.x'
 
 - script: |
     node --version
@@ -23,3 +18,10 @@ steps:
 - script: |
     npm test
   displayName: 'Run unit tests'
+
+- task: Npm@1
+  displayName: 'Publish package to Azure Artifacts'
+  inputs:
+    command: publish
+    publishRegistry: useFeed
+    publishFeed: 'new_npm/npm-feed'
