@@ -28,4 +28,7 @@ steps:
 - script: |
     docker build -t my-node-ci-cd:$(Build.BuildId) .
   displayName: 'Build Docker image'
+- script: |
+    trivy image --exit-code 1 --severity HIGH,CRITICAL my-node-ci-cd:$(Build.BuildId)
+  displayName: 'Trivy Image Scan'
 
